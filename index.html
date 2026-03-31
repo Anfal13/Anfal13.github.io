@@ -54,7 +54,25 @@
       margin-bottom: 30px;
       color: #c0c0c0;
     }
+.skill-card {
+  background: #0b122a;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 15px;
+  padding: 30px 10px;
+  transition: all 0.3s ease;
+}
 
+.skill-card:hover {
+  transform: translateY(-5px);
+  border-color: #3b82f6;
+  box-shadow: 0 0 20px rgba(59,130,246,0.3);
+}
+
+.skill-icon {
+  font-size: 40px;
+  margin-bottom: 15px;
+  color: #3b82f6;
+}
     /* PROFILE IMAGE */
     .profile-img {
       width: 250px;
@@ -150,13 +168,104 @@
 </section><br>
 
 <!-- Skills Section -->
-<section id="skills">
-  <h2><center>Technical Skills</center></h2>
-  <ul class="list-unstyled text-center">
-    <li>C# | .NET MVC | JavaScript | PHP</li>
-    <li>HTML5 | CSS3 | Bootstrap | jQuery</li>
-    <li>SQL Server | PostgreSQL | Git | GitHub</li>
-  </ul>
+<section id="skills" class="container mt-5">
+  <h2 class="text-center mb-5" style="color:#3b82f6;">Skills</h2>
+
+  <div class="row g-4">
+
+    <!-- Skill Card -->
+    <div class="col-md-3 col-6">
+      <div class="skill-card text-center">
+        <i class="fab fa-python skill-icon"></i>
+        <p>Python</p>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-6">
+      <div class="skill-card text-center">
+        <i class="fas fa-code skill-icon"></i>
+        <p>C# / .NET</p>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-6">
+      <div class="skill-card text-center">
+        <i class="fab fa-php skill-icon"></i>
+        <p>PHP</p>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-6">
+      <div class="skill-card text-center">
+        <i class="fab fa-js skill-icon"></i>
+        <p>JavaScript</p>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-6">
+      <div class="skill-card text-center">
+        <i class="fas fa-database skill-icon"></i>
+        <p>PostgreSQL</p>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-6">
+      <div class="skill-card text-center">
+        <i class="fas fa-database skill-icon"></i>
+        <p>MySQL</p>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-6">
+      <div class="skill-card text-center">
+        <i class="fas fa-server skill-icon"></i>
+        <p>SSMS</p>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-6">
+      <div class="skill-card text-center">
+        <i class="fab fa-git-alt skill-icon"></i>
+        <p>Git</p>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-6">
+      <div class="skill-card text-center">
+        <i class="fab fa-html5 skill-icon"></i>
+        <p>HTML5</p>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-6">
+      <div class="skill-card text-center">
+        <i class="fab fa-css3-alt skill-icon"></i>
+        <p>CSS3</p>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-6">
+      <div class="skill-card text-center">
+        <i class="fab fa-bootstrap skill-icon"></i>
+        <p>Bootstrap</p>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-6">
+      <div class="skill-card text-center">
+        <i class="fas fa-code skill-icon"></i>
+        <p>jQuery</p>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-6">
+      <div class="skill-card text-center">
+        <i class="fab fa-figma skill-icon"></i>
+        <p>Figma</p>
+      </div>
+    </div>
+
+  </div>
 </section>
   <!-- CONTACT SECTION -->
   <section id="contact">
