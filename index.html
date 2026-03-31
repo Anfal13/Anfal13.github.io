@@ -20,6 +20,54 @@
       transition: background 0.3s, color 0.3s;
       scroll-behavior: smooth;
     }
+    .contact-section {
+  padding: 80px 20px;
+}
+
+.contact-title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #3b82f6;
+}
+
+.contact-subtitle {
+  color: #c0c0c0;
+  font-size: 1.1rem;
+}
+
+.contact-card {
+  background: #0b122a;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 15px;
+  padding: 30px 15px;
+  transition: all 0.3s ease;
+}
+
+.contact-card:hover {
+  transform: translateY(-5px);
+  border-color: #3b82f6;
+  box-shadow: 0 0 20px rgba(59,130,246,0.3);
+}
+
+.contact-icon {
+  font-size: 30px;
+  margin-bottom: 15px;
+  color: #3b82f6;
+}
+
+.contact-card h6 {
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.contact-card a {
+  color: #3b82f6;
+  text-decoration: none;
+}
+
+.contact-card a:hover {
+  text-decoration: underline;
+}
 
     a { text-decoration: none; color: inherit; }
 
@@ -258,23 +306,63 @@
       </div>
     </div>
 
-    <div class="col-md-3 col-6">
-      <div class="skill-card text-center">
-        <i class="fab fa-figma skill-icon"></i>
-        <p>Figma</p>
-      </div>
-    </div>
+   
 
   </div>
 </section>
   <!-- CONTACT SECTION -->
-  <section id="contact">
-    <h2 class="text-center">Contact Me</h2>
-    <p class="text-center">Email: <a href="mailto:anfalahamed13@gmail.com">anfalahamed13@gmail.com</a></p>
-    <p class="text-center">Phone: +94 754243312</p>
-    <p class="text-center">LinkedIn: <a href="https://www.linkedin.com/in/anfalahamed-b65811276/" target="_blank">My Profile</a></p>
-  </section>
+ <section id="contact" class="contact-section">
+  <div class="container text-center">
+    <h2 class="contact-title mb-4">Get In Touch</h2>
+    <p class="contact-subtitle mb-5">
+      Feel free to reach out for collaborations or opportunities
+    </p>
 
+    <div class="row justify-content-center g-4">
+
+      <!-- Email -->
+      <div class="col-md-3 col-6">
+        <div class="contact-card">
+          <i class="fas fa-envelope contact-icon"></i>
+          <h6>Email</h6>
+          <a href="mailto:anfalahamed13@gmail.com">Send Mail</a>
+        </div>
+      </div>
+
+      <!-- Phone -->
+      <div class="col-md-3 col-6">
+        <div class="contact-card">
+          <i class="fas fa-phone contact-icon"></i>
+          <h6>Phone</h6>
+          <p>+94 754243312</p>
+        </div>
+      </div>
+
+      <!-- LinkedIn -->
+      <div class="col-md-3 col-6">
+        <div class="contact-card">
+          <i class="fab fa-linkedin contact-icon"></i>
+          <h6>LinkedIn</h6>
+          <a href="https://www.linkedin.com/in/anfalahamed-b65811276/" target="_blank">
+            View Profile
+          </a>
+        </div>
+      </div>
+
+      <!-- GitHub -->
+      <div class="col-md-3 col-6">
+        <div class="contact-card">
+          <i class="fab fa-github contact-icon"></i>
+          <h6>GitHub</h6>
+          <a href="https://github.com/Anfal13" target="_blank">
+            Visit GitHub
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
   <footer class="text-center mt-5 mb-3">
     &copy; 2026 Anfal Ahamed
   </footer>
