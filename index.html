@@ -7,6 +7,11 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  
   <style>
     :root {
       --bg: #060914;
@@ -116,87 +121,74 @@
     }
     .soc:hover { border-color:var(--accent); color:var(--accent); background:rgba(79,142,247,0.1); transform:translateY(-3px); }
 
-    /* PROFILE */
-  /* PROFILE */
+     /* Profile */
+    .hero-image-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      animation: fadeUp 0.9s 0.2s ease both;
+    }
 
-.profile-wrap { 
-  display:flex; 
-  justify-content:center; 
-  align-items:center; 
-}
+    .hero-img-ring {
+      position: relative;
+      width: 340px; height: 340px;
+    }
+    .hero-img-ring::before {
+      content: '';
+      position: absolute;
+      inset: -12px;
+      border-radius: 50%;
+      border: 2px dashed var(--accent-400);
+      animation: spin 18s linear infinite;
+    }
+    .hero-img-ring::after {
+      content: '';
+      position: absolute;
+      inset: -24px;
+      border-radius: 50%;
+      border: 2px dashed rgba(59,130,246,0.25);
+      animation: spin 28s linear infinite reverse;
+    }
 
-.profile-card { 
-  position:relative; 
-  width:300px; 
-  height:300px;   /* make it equal */
-  border-radius:50%; 
-  overflow:hidden; /* important for circle crop */
-}
+    .hero-img-inner {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 5px solid var(--bg-card);
+      box-shadow: var(--shadow-lg);
+      background: var(--bg-secondary);
+    }
+    .hero-img-inner img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
 
-.profile-card::before {
-  content:''; 
-  position:absolute; 
-  inset:-2px; 
-  border-radius:50%; /* make border circular */
-  background:linear-gradient(135deg,var(--accent),transparent 50%,#7dd3fc);
-  z-index:-1; 
-  opacity:0.5;
-}
-
-.profile-img { 
-  width:100%; 
-  height:100%; 
-  object-fit:cover; 
-  border-radius:50%; /* circle image */
-  display:block; 
-}
-
-.profile-placeholder {
-  width:300px; 
-  height:300px;
-  border-radius:50%;
-  background:var(--bg3); 
-  display:flex; 
-  flex-direction:column;
-  align-items:center; 
-  justify-content:center;
-  color:var(--muted); 
-  font-size:0.82rem; 
-  border:2px dashed var(--border);
-}
-
-.profile-placeholder i { 
-  font-size:2.5rem; 
-  margin-bottom:10px; 
-  color:var(--accent); 
-  opacity:0.5; 
-}
-
-/* stats stay same */
-.pstat {
-  position:absolute; 
-  background:var(--bg2); 
-  border:1px solid var(--border);
-  border-radius:12px; 
-  padding:10px 16px; 
-  font-size:0.78rem;
-}
-
-.pstat .num { 
-  font-family:'Space Mono',monospace; 
-  font-size:1.1rem; 
-  font-weight:700; 
-  color:var(--accent); 
-  display:block; 
-}
-
-.pstat .lbl { 
-  color:var(--muted); 
-  font-size:0.7rem; 
-}
-
-.pstat-l { bottom:20px; left:-20px; }
-.pstat-r { top:20px; right:-20px; }
+    /* Floating badges on image */
+    .hero-badge {
+      position: absolute;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 10px 16px;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      animation: floatBadge 3s ease-in-out infinite;
+      white-space: nowrap;
+    }
+    .hero-badge-1 { bottom: 30px; left: -20px; animation-delay: 0s; }
+    .hero-badge-2 { top: 40px; right: -20px; animation-delay: 1.5s; }
+    .hero-badge .badge-icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--accent-500), var(--accent-700));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      color: #fff;
+    }
 
 /* Floating animation */
 @keyframes float {
