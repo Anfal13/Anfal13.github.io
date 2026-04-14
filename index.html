@@ -18,11 +18,7 @@
     *{margin:0;padding:0;box-sizing:border-box;}
     html{scroll-behavior:smooth;}
     body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
-    body::before{
-      content:'';position:fixed;inset:0;
-      background-image:linear-gradient(rgba(79,142,247,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(79,142,247,0.04) 1px,transparent 1px);
-      background-size:60px 60px;pointer-events:none;z-index:0;
-    }
+    body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(79,142,247,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(79,142,247,0.04) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;}
     section,nav,footer{position:relative;z-index:1;}
 
     /* NAVBAR */
@@ -58,18 +54,75 @@
     .soc{width:40px;height:40px;border-radius:10px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:0.95rem;transition:all 0.3s;text-decoration:none;}
     .soc:hover{border-color:var(--accent);color:var(--accent);background:rgba(79,142,247,0.1);transform:translateY(-3px);}
 
-    /* PROFILE */
+    /* ── ROUND PROFILE IMAGE + ANIMATIONS ── */
     .profile-wrap{display:flex;justify-content:center;align-items:center;}
-    .profile-card{position:relative;width:290px;}
-    .profile-card::before{content:'';position:absolute;inset:-2px;border-radius:24px;background:linear-gradient(135deg,var(--accent),transparent 50%,#7dd3fc);z-index:-1;opacity:0.5;}
-    .profile-img{width:290px;height:350px;object-fit:cover;border-radius:22px;display:block;background:var(--bg3);}
-    .profile-placeholder{width:290px;height:350px;border-radius:22px;background:var(--bg3);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--muted);font-size:0.8rem;border:2px dashed var(--border);}
-    .profile-placeholder i{font-size:2.5rem;margin-bottom:10px;color:var(--accent);opacity:0.5;}
-    .pstat{position:absolute;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:9px 14px;font-size:0.75rem;}
+
+    /* The whole block floats up/down */
+    .profile-float{
+      animation:float-updown 4s ease-in-out infinite;
+      position:relative;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+    }
+    @keyframes float-updown{0%,100%{transform:translateY(0);}50%{transform:translateY(-16px);}}
+
+    /* Outer glow pulse ring */
+    .profile-glow{
+      position:absolute;
+      inset:-20px;
+      border-radius:50%;
+      background:radial-gradient(circle,rgba(79,142,247,0.2) 0%,transparent 68%);
+      animation:glow-beat 3s ease-in-out infinite;
+    }
+    @keyframes glow-beat{0%,100%{opacity:0.5;transform:scale(1);}50%{opacity:1;transform:scale(1.08);}}
+
+    /* Spinning conic-gradient ring */
+    .profile-ring{
+      position:absolute;
+      inset:-5px;
+      border-radius:50%;
+      background:conic-gradient(from 0deg,var(--accent) 0%,#7dd3fc 30%,transparent 50%,var(--accent) 100%);
+      animation:spin-ring 3.5s linear infinite;
+    }
+    @keyframes spin-ring{to{transform:rotate(360deg);}}
+
+    /* White border mask between ring and photo */
+    .profile-mask{
+      position:absolute;
+      inset:0;
+      border-radius:50%;
+      border:4px solid var(--bg);
+      z-index:1;
+      pointer-events:none;
+    }
+
+    /* The actual image */
+    .profile-img{
+      width:280px; height:280px;
+      border-radius:50%;
+      object-fit:cover;
+      object-position:top center;
+      display:block;
+      position:relative;
+      z-index:0;
+    }
+
+    /* Floating stat badges */
+    .pstat{
+      position:absolute;
+      background:var(--bg2);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:9px 14px;
+      font-size:0.75rem;
+      z-index:3;
+      white-space:nowrap;
+    }
     .pstat .num{font-family:'Space Mono',monospace;font-size:1.05rem;font-weight:700;color:var(--accent);display:block;}
     .pstat .lbl{color:var(--muted);font-size:0.68rem;}
-    .pstat-l{bottom:-8px;left:-2px;}
-    .pstat-r{top:38px;right:-22px;}
+    .pstat-l{bottom:8px;left:-30px;}
+    .pstat-r{top:30px;right:-30px;}
 
     /* SECTION SHARED */
     .slabel{font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--accent);letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;}
@@ -79,7 +132,7 @@
 
     /* ABOUT */
     #about{background:var(--bg2);}
-    .acard{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:36px;}
+    .acard{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:36px;height:100%;}
     .atext{font-size:0.97rem;line-height:1.9;color:#c8cfd8;}
     .ahl{color:var(--accent2);font-weight:500;}
     .facts{margin-top:24px;display:flex;flex-wrap:wrap;gap:10px;}
@@ -93,18 +146,44 @@
     .focus-row:last-child{margin-bottom:0;}
     .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
 
-    /* ABOUT PHOTO */
-    .about-photo-wrap{position:relative;}
-    .about-photo-wrap::before{content:'';position:absolute;inset:-2px;border-radius:20px;background:linear-gradient(135deg,var(--accent),transparent 60%,#7dd3fc);z-index:-1;opacity:0.4;}
-    .about-photo{width:100%;height:380px;object-fit:cover;object-position:top;border-radius:18px;display:block;}
-    .about-photo-placeholder{width:100%;height:380px;border-radius:18px;background:var(--bg3);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--muted);font-size:0.8rem;border:2px dashed var(--border);}
-    .about-photo-placeholder i{font-size:2rem;margin-bottom:8px;color:var(--accent);opacity:0.4;}
+    /* ── ABOUT PHOTO — round + spinning ring ── */
+    .about-photo-outer{
+      position:relative;
+      width:180px; height:180px;
+      margin:0 auto 20px;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .about-photo-ring{
+      position:absolute; inset:-4px; border-radius:50%;
+      background:conic-gradient(from 0deg,var(--accent) 0%,#7dd3fc 30%,transparent 50%,var(--accent) 100%);
+      animation:spin-ring 5s linear infinite;
+    }
+    .about-photo-border{
+      position:absolute; inset:0; border-radius:50%;
+      border:3px solid var(--bg2);
+      z-index:1; pointer-events:none;
+    }
+    .about-photo{
+      width:174px; height:174px;
+      border-radius:50%;
+      object-fit:cover; object-position:top center;
+      display:block; position:relative; z-index:0;
+    }
+    .about-photo-placeholder{
+      width:174px; height:174px; border-radius:50%;
+      background:var(--bg3); border:2px dashed var(--border);
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      color:var(--muted); font-size:0.75rem; position:relative; z-index:0; text-align:center; padding:10px;
+    }
+    .about-photo-placeholder i{font-size:1.8rem;margin-bottom:6px;color:var(--accent);opacity:0.4;}
 
     /* LANGUAGES */
-    .lang-bar-wrap{margin-bottom:16px;}
-    .lang-label{display:flex;justify-content:space-between;font-size:0.83rem;margin-bottom:6px;}
+    .lang-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;}
+    .lang-bar-wrap{margin-bottom:14px;}
+    .lang-bar-wrap:last-child{margin-bottom:0;}
+    .lang-label{display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:5px;}
     .lang-label span:first-child{color:var(--text);font-weight:500;}
-    .lang-label span:last-child{color:var(--accent2);font-size:0.75rem;}
+    .lang-label span:last-child{color:var(--accent2);font-size:0.73rem;}
     .lang-bar{height:5px;background:rgba(79,142,247,0.12);border-radius:10px;overflow:hidden;}
     .lang-fill{height:100%;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent2));}
 
@@ -136,8 +215,6 @@
     .ecard-year{font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--accent);margin-bottom:5px;letter-spacing:1px;}
     .ecard-degree{font-size:0.97rem;font-weight:600;color:var(--text);margin-bottom:5px;line-height:1.4;}
     .ecard-school{font-size:0.84rem;color:var(--muted);}
-
-    /* CERTIFICATIONS */
     .cert-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px 20px;display:flex;align-items:center;gap:16px;transition:all 0.3s;}
     .cert-card:hover{border-color:rgba(79,142,247,0.4);transform:translateY(-4px);box-shadow:0 10px 30px rgba(0,0,0,0.3),0 0 20px var(--glow);}
     .cert-icon{width:44px;height:44px;border-radius:12px;background:rgba(79,142,247,0.1);border:1px solid rgba(79,142,247,0.2);display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:1.1rem;flex-shrink:0;}
@@ -200,11 +277,7 @@
     footer span{color:var(--accent);}
 
     /* LIGHT MODE */
-    .light-mode{
-      --bg:#f0f4ff;--bg2:#e6ecf8;--bg3:#dde5f5;
-      --text:#1a202c;--muted:#5a6478;--card:rgba(255,255,255,0.93);
-      --border:rgba(79,142,247,0.2);--glow:rgba(79,142,247,0.12);
-    }
+    .light-mode{--bg:#f0f4ff;--bg2:#e6ecf8;--bg3:#dde5f5;--text:#1a202c;--muted:#5a6478;--card:rgba(255,255,255,0.93);--border:rgba(79,142,247,0.2);--glow:rgba(79,142,247,0.12);}
     .light-mode .navbar{background:rgba(240,244,255,0.92)!important;}
     .light-mode .chat-in{color:var(--text);}
     .light-mode .tcard,.light-mode .acard{background:rgba(255,255,255,0.95);}
@@ -213,15 +286,16 @@
     .fu{opacity:0;transform:translateY(28px);transition:opacity 0.6s ease,transform 0.6s ease;}
     .fu.vis{opacity:1;transform:translateY(0);}
 
+    /* RESPONSIVE */
     @media(max-width:768px){
       #hero{padding:100px 20px 60px;text-align:center;}
       .hero-ctas,.social-row{justify-content:center;}
       .profile-wrap{margin-top:48px;}
-      .pstat-l{left:-6px;}.pstat-r{right:-6px;}
-      .profile-card{width:250px;}
-      .profile-img,.profile-placeholder{width:250px;height:300px;}
+      .pstat-l{left:0;bottom:-14px;}
+      .pstat-r{right:0;top:16px;}
       .tcard-top{flex-direction:column;}
       .ecard{flex-direction:column;}
+      .hero-desc{margin-left:auto;margin-right:auto;}
     }
   </style>
 </head>
@@ -254,6 +328,8 @@
   <div class="orb"></div>
   <div class="container">
     <div class="row align-items-center g-5">
+
+      <!-- LEFT: text content -->
       <div class="col-lg-7 fu">
         <div class="hero-badge">Available for opportunities</div>
         <h1 class="hero-name">Hi, I'm<br><span class="acc">Anfal Ahamed</span></h1>
@@ -271,12 +347,19 @@
           <a href="#" class="soc"><i class="fab fa-instagram"></i></a>
         </div>
       </div>
+
+      <!-- RIGHT: round animated profile image -->
       <div class="col-lg-5 profile-wrap fu" style="transition-delay:0.2s">
-        <div class="profile-card">
-         
+        <div class="profile-float">
+          <!-- glow behind everything -->
+          <div class="profile-glow"></div>
+          <!-- spinning ring -->
+          <div class="profile-ring"></div>
+          <!-- the image (clips to circle because it IS round) -->
           <img src="graduationpic.jpg" alt="Anfal Ahamed" class="profile-img">
-            
-          </div>
+          <!-- thin border mask between ring and image -->
+          <div class="profile-mask"></div>
+          <!-- stat badges -->
           <div class="pstat pstat-l">
             <span class="num">1yr</span>
             <span class="lbl">Experience</span>
@@ -287,6 +370,7 @@
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -299,21 +383,41 @@
       <h2 class="stitle">About Me</h2>
       <div class="sline"></div>
     </div>
-    <div class="row g-5 align-items-start">
-      <!-- Photo column -->
-      <div class="col-lg-3 col-md-4 fu">
-        <div class="about-photo-wrap">
-          <!-- Replace below with: <img src="graduation.jpg" alt="Anfal Ahamed" class="about-photo"> -->
-         <img src="graduation.jpg" alt="Anfal Ahamed" class="about-photo">
-          
+
+    <!--
+      Desktop (≥lg):  col-lg-3 photo+langs | col-lg-5 bio | col-lg-4 stats
+      Tablet/Mobile:  stacked
+    -->
+    <div class="row g-4 align-items-start">
+
+      <!-- COL 1: round photo + language bars -->
+      <div class="col-lg-3 col-12 fu">
+        <div class="about-photo-outer">
+          <div class="about-photo-ring"></div>
+          <img src="graduation.jpg" alt="Anfal Ahamed" class="about-photo">
+          <div class="about-photo-border"></div>
+        </div>
+        <div class="lang-box">
+          <div style="font-family:'Space Mono',monospace;font-size:0.68rem;color:var(--accent);letter-spacing:2px;margin-bottom:14px;">LANGUAGES</div>
+          <div class="lang-bar-wrap">
+            <div class="lang-label"><span>English</span><span>Fluent</span></div>
+            <div class="lang-bar"><div class="lang-fill" style="width:95%"></div></div>
+          </div>
+          <div class="lang-bar-wrap">
+            <div class="lang-label"><span>Sinhala</span><span>Fluent</span></div>
+            <div class="lang-bar"><div class="lang-fill" style="width:95%"></div></div>
+          </div>
+          <div class="lang-bar-wrap">
+            <div class="lang-label"><span>Tamil</span><span>Fluent</span></div>
+            <div class="lang-bar"><div class="lang-fill" style="width:90%"></div></div>
           </div>
         </div>
-      
       </div>
-      <!-- Bio column -->
-      <div class="col-lg-5 col-md-8 fu" style="transition-delay:0.1s">
+
+      <!-- COL 2: bio card -->
+      <div class="col-lg-5 col-12 fu" style="transition-delay:0.1s">
         <div class="acard">
-          <p class="atext">Motivated <span class="ahl">Software Engineering undergraduate</span> with hands-on experience in full-stack web development using <span class="ahl">C#, ASP.NET MVC,</span> and SQL databases. Skilled in designing and developing scalable applications, including reservation and management systems.</p>
+          <p class="atext">Motivated <span class="ahl">Software Engineering graduate</span> with hands-on experience in full-stack web development using <span class="ahl">C#, ASP.NET MVC,</span> and SQL databases. Skilled in designing and developing scalable applications, including reservation and management systems.</p>
           <p class="atext" style="margin-top:16px;">A fast learner with a strong ability to <span class="ahl">adapt to new technologies</span> and deliver efficient, user-friendly solutions. I enjoy turning complex problems into clean, intuitive experiences — whether that's a web app, a system, or an API.</p>
           <p class="atext" style="margin-top:16px;">Gained real-world experience through an internship at <span class="ahl">FikrFution Technology, Qatar</span>, working on full-stack applications and collaborating with senior engineers. Currently seeking an <span class="ahl">entry-level software engineering role</span> to continue growing and making an impact.</p>
           <div class="facts">
@@ -325,8 +429,9 @@
           </div>
         </div>
       </div>
-      <!-- Stats column -->
-      <div class="col-lg-4 fu" style="transition-delay:0.2s">
+
+      <!-- COL 3: stat cards + focus -->
+      <div class="col-lg-4 col-12 fu" style="transition-delay:0.2s">
         <div class="row g-3">
           <div class="col-6"><div class="astat"><div class="astat-num">1yr</div><div class="astat-lbl">Work Experience</div></div></div>
           <div class="col-6"><div class="astat"><div class="astat-num">3+</div><div class="astat-lbl">Projects Built</div></div></div>
@@ -334,7 +439,7 @@
           <div class="col-6"><div class="astat"><div class="astat-num">3</div><div class="astat-lbl">Languages</div></div></div>
           <div class="col-12">
             <div class="focus-card">
-              <div style="font-size:0.72rem;color:var(--muted);margin-bottom:14px;font-family:'Space Mono',monospace;letter-spacing:2px;">CURRENT FOCUS</div>
+              <div style="font-size:0.7rem;color:var(--muted);margin-bottom:12px;font-family:'Space Mono',monospace;letter-spacing:2px;">CURRENT FOCUS</div>
               <div class="focus-row"><div class="dot" style="background:#22c55e;box-shadow:0 0 8px #22c55e;"></div><span style="font-size:0.86rem;">ASP.NET Core &amp; Web APIs</span></div>
               <div class="focus-row"><div class="dot" style="background:var(--accent);"></div><span style="font-size:0.86rem;">Full-Stack Web Applications</span></div>
               <div class="focus-row"><div class="dot" style="background:#7dd3fc;"></div><span style="font-size:0.86rem;">Database Design &amp; Optimization</span></div>
@@ -342,6 +447,7 @@
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -434,8 +540,6 @@
         </div>
       </div>
     </div>
-
-    <!-- CERTIFICATIONS -->
     <div style="margin-top:60px;">
       <div class="fu">
         <div class="slabel">// courses &amp; credentials</div>
@@ -535,7 +639,7 @@
 <section id="ai-chat" class="spad">
   <div class="container">
     <div class="fu text-center">
-      
+      <div class="slabel" style="text-align:center;">// powered by claude ai</div>
       <h2 class="stitle">Ask About Anfal</h2>
       <p style="color:var(--muted);max-width:470px;margin:0 auto 14px;font-size:0.9rem;">Curious about my experience, education, or projects? Ask the AI assistant anything.</p>
       <div class="sline" style="margin:18px auto 42px;"></div>
@@ -546,7 +650,7 @@
           <div class="chat-av"><i class="fas fa-robot"></i></div>
           <div>
             <div class="cname">Anfal's AI Assistant</div>
-            <div class="cstatus">● Online </div>
+            <div class="cstatus">● Online · Powered by Claude</div>
           </div>
         </div>
         <div class="chat-msgs" id="chatMsgs">
@@ -587,64 +691,31 @@
 
 <footer>
   <p>Designed &amp; built by <span>Anfal Ahamed</span> &nbsp;·&nbsp; &copy; 2026 All rights reserved.</p>
-  <p style="margin-top:7px;opacity:0.42;font-size:0.74rem;">HTML · CSS · Bootstrap </p>
+  <p style="margin-top:7px;opacity:0.42;font-size:0.74rem;">HTML · CSS · Bootstrap · Claude AI</p>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  // LIGHT/DARK
   const modeBtn = document.getElementById('modeToggle');
   modeBtn.addEventListener('click', () => {
     document.documentElement.classList.toggle('light-mode');
     modeBtn.textContent = document.documentElement.classList.contains('light-mode') ? '🌙 Dark' : '☀️ Light';
   });
 
-  // SCROLL ANIMATIONS
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
   }, { threshold: 0.07 });
   document.querySelectorAll('.fu').forEach(el => obs.observe(el));
 
-  // AI CHAT SYSTEM PROMPT
   const SYS = `You are an AI assistant embedded in Anfal Ahamed's personal portfolio website. Answer questions about Anfal in a friendly, professional, and concise way (2-4 sentences unless detail is asked for).
-
-PERSONAL INFO:
-- Full name: Anfal Ahamed
-- Role: Software Engineering graduate & Full-Stack Developer & Freelancer
-- Location: Sri Lanka
-- Email: anfalahamed13@gmail.com | Phone: +94 754 243 312
-- GitHub: https://github.com/Anfal13
-- LinkedIn: https://www.linkedin.com/in/anfalahamed-b65811276/
-
+PERSONAL INFO: Full name: Anfal Ahamed | Role: Software Engineering graduate & Full-Stack Developer & Freelancer | Location: Sri Lanka | Email: anfalahamed13@gmail.com | Phone: +94 754 243 312 | GitHub: https://github.com/Anfal13 | LinkedIn: https://www.linkedin.com/in/anfalahamed-b65811276/
 BIO: Motivated Software Engineering graduate with hands-on experience in full-stack web development using C#, ASP.NET MVC, and SQL databases. Skilled in building scalable applications. Fast learner. Seeking entry-level software engineering role.
-
-EXPERIENCE:
-- Software Engineer Intern at FikrFution Technology, Qatar (Sep 2024 – Aug 2025)
-  · Developed and maintained web applications using C# and ASP.NET MVC
-  · Enhanced UI/UX using HTML, CSS, and jQuery
-  · Designed and optimized databases using PostgreSQL
-  · Collaborated with senior developers to debug and improve system performance
-  · Gained hands-on full-stack development and clean coding practice
-
-EDUCATION:
-- BSc (Hons) in Software Engineering (Completed) – London Metropolitan University via ESOFT Metro Campus, 2024–2025
-- Higher National Diploma in Software Engineering – ESOFT Metro Campus, 2023–2024
-- G.C.E Advanced Level – Zahira College, Mawanella, 2022
-- G.C.E Ordinary Level – Zahira College, Mawanella, 2019
-
-CERTIFICATIONS:
-- Responsive Web Design – freeCodeCamp
-- Programming in C# – Microsoft Learn
-
-LANGUAGES: English (Fluent), Sinhala (Fluent), Tamil (Fluent)
-
-SKILLS: Python, C#/.NET, PHP, JavaScript, PostgreSQL, MySQL, SSMS, Git, HTML5, CSS3, Bootstrap, jQuery, ASP.NET MVC
-
-PROJECTS:
-1. StaySwift Hotel System – Hotel management with bookings, check-in/out, customer records, billing. Stack: ASP.NET MVC, SQL Server, Bootstrap.
-2. Qazi Appointment System – Booking system with location filtering and time-slot validation. Stack: .NET MVC, PostgreSQL, jQuery.
-3. Vehicle Maintenance Tracker – Tracks service history and sends maintenance reminders. Stack: C#, SQL Server, JavaScript.
-
+EXPERIENCE: Software Engineer Intern at FikrFution Technology, Qatar (Sep 2024 – Aug 2025) - Developed and maintained web apps using C# and ASP.NET MVC - Enhanced UI/UX with HTML, CSS, jQuery - Designed and optimized databases using PostgreSQL - Collaborated with senior developers - Gained full-stack development experience.
+EDUCATION: BSc (Hons) Software Engineering (Completed) – London Metropolitan University via ESOFT Metro Campus 2024–2025 | HND Software Engineering – ESOFT Metro Campus 2023–2024 | G.C.E A/L – Zahira College Mawanella 2022 | G.C.E O/L – Zahira College Mawanella 2019.
+CERTIFICATIONS: Responsive Web Design – freeCodeCamp | Programming in C# – Microsoft Learn.
+LANGUAGES: English (Fluent), Sinhala (Fluent), Tamil (Fluent).
+SKILLS: Python, C#/.NET, PHP, JavaScript, PostgreSQL, MySQL, SSMS, Git, HTML5, CSS3, Bootstrap, jQuery, ASP.NET MVC.
+PROJECTS: 1. StaySwift Hotel System – ASP.NET MVC, SQL Server, Bootstrap. 2. Qazi Appointment System – .NET MVC, PostgreSQL, jQuery. 3. Vehicle Maintenance Tracker – C#, SQL Server, JavaScript.
 If asked something you don't know, say so and suggest contacting Anfal directly.`;
 
   const msgsDiv = document.getElementById('chatMsgs');
@@ -672,12 +743,7 @@ If asked something you don't know, say so and suggest contacting Anfal directly.
       const res = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 1000,
-          system: SYS,
-          messages: history
-        })
+        body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, system: SYS, messages: history })
       });
       const data = await res.json();
       const reply = (data.content || []).map(b => b.text || '').join('') || "Sorry, I couldn't respond. Please contact Anfal directly!";
